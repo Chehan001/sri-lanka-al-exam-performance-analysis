@@ -5,7 +5,6 @@ import Sidebar from './components/Sidebar';
 
 // Pages Import
 import Dashboard from './pages/Dashboard';
-import UploadCSV from './pages/UploadCSV';
 import YearAnalysis from './pages/YearAnalysis';
 import ProvinceAnalysis from './pages/ProvinceAnalysis';
 import DistrictAnalysis from './pages/DistrictAnalysis';
@@ -31,7 +30,6 @@ function App() {
             <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
-                <Route path="/upload" element={<UploadCSV />} />
                 <Route path="/year-analysis" element={<YearAnalysis />} />
                 <Route path="/province-analysis" element={<ProvinceAnalysis />} />
                 <Route path="/district-analysis" element={<DistrictAnalysis />} />

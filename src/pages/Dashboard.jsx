@@ -37,6 +37,23 @@ const Dashboard = () => {
     fetchDashboardData();
   }, []);
 
+  const chartData = React.useMemo(() => {
+    if (!data || !data.yearlyTrend) return [];
+    const yearsMap = {};
+    
+    // Sort oldest to newest for chronological line plotting
+    const sortedData = [...data.yearlyTrend].sort((a, b) => a.year - b.year);
+
+    sortedData.forEach(row => {
+      if (!yearsMap[row.year]) {
+        yearsMap[row.year] = { year: row.year };
+      }
+      yearsMap[row.year][row.candidate_type] = row.eligible_percentage;
+    });
+
+    return Object.values(yearsMap);
+  }, [data]);
+
   if (loading) {
     return (
       <div className="space-y-8 animate-pulse">
@@ -155,14 +172,14 @@ const Dashboard = () => {
             <h3 className="text-sm font-bold text-white uppercase tracking-wider font-display">
               Year-wise University Eligibility Trend
             </h3>
-            <p className="text-[11px] text-slate-400 font-medium">Eligible candidates percentage over years (2020-2025)</p>
+            <p className="text-[11px] text-slate-400 font-medium">Eligible candidates percentage over years (2021-2025)</p>
           </div>
           <LineChart 
-            data={data.yearlyTrend} 
+            data={chartData} 
             xKey="year" 
-            yKey="eligible_percentage" 
-            labels="Eligibility Percentage" 
-            colors="#10b981" 
+            yKey={['School', 'Private']} 
+            labels={['School Candidates', 'Private Candidates']} 
+            colors={['#10b981', '#3b82f6']} 
             yFormatter={(val) => `${val}%`}
           />
         </div>

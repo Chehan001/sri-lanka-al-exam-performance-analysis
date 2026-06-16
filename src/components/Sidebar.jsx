@@ -16,7 +16,6 @@ import {
 const Sidebar = () => {
   const menuItems = [
     { path: '/', name: 'Dashboard', icon: LayoutDashboard },
-    { path: '/upload', name: 'Upload Data', icon: Upload },
     { path: '/year-analysis', name: 'Year Analysis', icon: TrendingUp },
     { path: '/province-analysis', name: 'Province Analysis', icon: Map },
     { path: '/district-analysis', name: 'District Analysis', icon: MapPin },
