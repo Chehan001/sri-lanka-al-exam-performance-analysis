@@ -91,7 +91,7 @@ export const checkApiHealth = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/health`, { timeout: 2000 });
     return response.status === 200;
-  } catch (error) {
+  } catch {
     return false;
   }
 };

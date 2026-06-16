@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Upload, FileSpreadsheet, FileText, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
 import apiService from '../services/api';
 

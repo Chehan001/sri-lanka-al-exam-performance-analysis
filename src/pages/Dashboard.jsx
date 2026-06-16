@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { 
   Calendar, 
   Users, 
@@ -7,8 +7,7 @@ import {
   AlertCircle, 
   MapPin, 
   Network, 
-  BookOpen,
-  Info
+  BookOpen
 } from 'lucide-react';
 import apiService from '../services/api';
 import SummaryCard from '../components/SummaryCard';
@@ -37,7 +36,7 @@ const Dashboard = () => {
     fetchDashboardData();
   }, []);
 
-  const chartData = React.useMemo(() => {
+  const chartData = useMemo(() => {
     if (!data || !data.yearlyTrend) return [];
     const yearsMap = {};
     
@@ -105,7 +104,7 @@ const Dashboard = () => {
       </div>
 
       {/* 8 Summary Cards Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
         <SummaryCard 
           title="Latest Year" 
           value={data.latestYear} 

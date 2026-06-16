@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Download, FileSpreadsheet, CheckCircle, Info, ServerCrash } from 'lucide-react';
+import { useState } from 'react';
+import { Download, FileSpreadsheet, Info } from 'lucide-react';
 import apiService from '../services/api';
 
 const ExportData = () => {

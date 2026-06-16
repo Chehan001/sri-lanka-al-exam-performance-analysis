@@ -1,4 +1,3 @@
-import React from 'react';
 
 const SummaryCard = ({ title, value, icon: Icon, description, trend, status = 'info' }) => {
   // Map status to specific gradients for icons and borders
@@ -50,23 +49,23 @@ const SummaryCard = ({ title, value, icon: Icon, description, trend, status = 'i
   const currentTheme = themeMap[status] || themeMap.info;
 
   return (
-    <div className={`relative overflow-hidden glass-panel rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${currentTheme.border} ${currentTheme.glow}`}>
+    <div className={`relative overflow-hidden glass-panel rounded-2xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${currentTheme.border} ${currentTheme.glow}`}>
       {/* Decorative top-accent bar */}
       <div className={`absolute top-0 left-0 w-full h-[3px] ${currentTheme.accent}`} />
 
-      <div className="flex items-start justify-between">
-        <div className="space-y-1">
-          <span className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">
+      <div className="flex items-start justify-between gap-2">
+        <div className="space-y-1 min-w-0 flex-1">
+          <span className="text-[10px] sm:text-[11px] font-bold tracking-wider text-slate-400 uppercase truncate block">
             {title}
           </span>
-          <h3 className="text-2xl font-bold font-display tracking-tight text-white mt-1">
+          <h3 className="text-lg xs:text-xl sm:text-2xl font-bold font-display tracking-tight text-white mt-1 truncate">
             {value}
           </h3>
         </div>
 
         {Icon && (
-          <div className={`p-2.5 rounded-xl ${currentTheme.iconBg}`}>
-            <Icon className="h-5 w-5" />
+          <div className={`p-2 sm:p-2.5 rounded-xl flex-shrink-0 ${currentTheme.iconBg}`}>
+            <Icon className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
           </div>
         )}
       </div>

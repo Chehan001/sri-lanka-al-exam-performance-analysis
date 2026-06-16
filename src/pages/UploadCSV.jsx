@@ -1,5 +1,4 @@
-import React from 'react';
-import { Upload, HelpCircle, FileText, CheckCircle, Database } from 'lucide-react';
+import { HelpCircle, FileText, Database } from 'lucide-react';
 import FileUpload from '../components/FileUpload';
 
 const UploadCSV = () => {

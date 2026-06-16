@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   ResponsiveContainer, 
   BarChart as RechartsBarChart, 
@@ -7,7 +6,6 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  Legend,
   Cell
 } from 'recharts';
 
@@ -49,7 +47,7 @@ const BarChart = ({
       <ResponsiveContainer width="100%" height="100%">
         <RechartsBarChart
           data={data}
-          margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+          margin={{ top: 10, right: 10, left: -10, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.4} vertical={false} />
           

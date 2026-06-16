@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Scale, AlertCircle, TrendingUp, TrendingDown, RefreshCw, Calendar } from 'lucide-react';
 import apiService from '../services/api';
 import LineChart from '../components/LineChart';
@@ -13,28 +13,43 @@ const CompareYears = () => {
 
   const years = ['2020', '2021', '2022', '2023', '2024', '2025'];
 
-  const fetchComparison = async () => {
-    if (year1 === year2) {
-      setError('Please select two different years to perform a comparison.');
-      setData(null);
-      return;
-    }
-
-    setLoading(true);
-    setError('');
-    try {
-      const response = await apiService.getCompareYears(year1, year2);
-      setData(response.data);
-    } catch (err) {
-      console.error(err);
-      setError('Failed to fetch comparison statistics. Verify that the API is running.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    let active = true;
+    const fetchComparison = async () => {
+      // Defer execution to avoid synchronous setState inside useEffect
+      await Promise.resolve();
+      if (!active) return;
+
+      if (year1 === year2) {
+        setError('Please select two different years to perform a comparison.');
+        setData(null);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      setError('');
+      try {
+        const response = await apiService.getCompareYears(year1, year2);
+        if (active) {
+          setData(response.data);
+        }
+      } catch (err) {
+        if (active) {
+          console.error(err);
+          setError('Failed to fetch comparison statistics. Verify that the API is running.');
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    };
+
     fetchComparison();
+    return () => {
+      active = false;
+    };
   }, [year1, year2]);
 
   // Helper to calculate difference indicator styles

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BookOpen, AlertCircle, BarChart3, PieChart as PieIcon, ListCollapse } from 'lucide-react';
+import { useState, useEffect, useMemo } from 'react';
+import { AlertCircle, BarChart3, PieChart as PieIcon, ListCollapse } from 'lucide-react';
 import apiService from '../services/api';
 import FilterPanel from '../components/FilterPanel';
 import BarChart from '../components/BarChart';
@@ -44,7 +44,7 @@ const SubjectAnalysis = () => {
   };
 
   // Convert selected subject grades to PieChart format
-  const pieChartData = React.useMemo(() => {
+  const pieChartData = useMemo(() => {
     if (!selectedSubject) return [];
     return [
       { name: 'Grade A', value: selectedSubject.grade_a_percentage },
@@ -103,57 +103,39 @@ const SubjectAnalysis = () => {
         </div>
       ) : (
         <>
-          {/* Main Pass Percentage Bar Chart */}
-          <div className="glass-panel rounded-2xl p-5 border border-slate-800/80">
-            <div className="mb-4">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider font-display flex items-center gap-1.5">
-                <BarChart3 className="h-4.5 w-4.5 text-brand-400" />
-                <span>Subject Pass Rate Comparison (Year {year})</span>
-              </h3>
-              <p className="text-[11px] text-slate-400 font-medium">Comparison of passing candidates ratio across top subjects</p>
-            </div>
-            <BarChart
-              data={data}
-              xKey="subject_name"
-              yKey="pass_percentage"
-              label="Pass %"
-              color="#0e8fe5"
-              colorsPalette={null}
-              yFormatter={(val) => `${val}%`}
-              height={320}
-            />
-          </div>
-
           {/* Interactive Grade Distribution Panel */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             {/* Left Column: Grade Pie Chart */}
             <div className="glass-panel rounded-2xl p-5 border border-slate-800/80 lg:col-span-1 flex flex-col justify-between h-full">
               <div>
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider font-display flex items-center gap-1.5">
-                  <PieIcon className="h-4.5 w-4.5 text-brand-400" />
-                  <span>Grade distribution</span>
-                </h3>
-                <p className="text-[11px] text-slate-400 font-medium mb-4">Letter grades ratio for selected subject</p>
-
-                {/* Subject Selector Dropdown */}
-                <div className="space-y-1 mt-3">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Select Subject</label>
-                  <select
-                    value={selectedSubject?.subject_name || ''}
-                    onChange={handleSubjectChange}
-                    className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-semibold text-slate-200 cursor-pointer focus:outline-none focus:border-brand-500"
-                  >
-                    {data.map(sub => (
-                      <option key={sub.subject_name} value={sub.subject_name}>
-                        {sub.subject_name} ({sub.stream_name})
-                      </option>
-                    ))}
-                  </select>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 pb-4 border-b border-slate-800/50">
+                  <div>
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wider font-display flex items-center gap-1.5">
+                      <PieIcon className="h-4.5 w-4.5 text-brand-400" />
+                      <span>Grade distribution</span>
+                    </h3>
+                    <p className="text-[11px] text-slate-400 font-medium">Letter grades ratio for selected subject</p>
+                  </div>
+                  
+                  {/* Subject Selector Dropdown */}
+                  <div className="min-w-[140px]">
+                    <select
+                      value={selectedSubject?.subject_name || ''}
+                      onChange={handleSubjectChange}
+                      className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-slate-200 cursor-pointer focus:outline-none focus:border-brand-500"
+                    >
+                      {data.map(sub => (
+                        <option key={sub.subject_name} value={sub.subject_name}>
+                          {sub.subject_name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
 
               {selectedSubject ? (
-                <div className="mt-4 flex flex-col items-center">
+                <div className="mt-2 flex flex-col items-center">
                   <PieChart
                     data={pieChartData}
                     nameKey="name"
@@ -162,11 +144,11 @@ const SubjectAnalysis = () => {
                     yFormatter={(val) => `${val}%`}
                     height={260}
                   />
-                  <div className="text-center mt-2">
-                    <p className="text-xs text-slate-400 font-medium">
+                  <div className="text-center mt-2 animate-fade-in">
+                    <p className="text-xs text-slate-350 font-semibold">
                       Pass Rate: <span className="text-emerald-400 font-bold">{selectedSubject.pass_percentage}%</span>
                     </p>
-                    <p className="text-[10px] text-slate-500">
+                    <p className="text-[10px] text-slate-500 mt-0.5">
                       Candidates: {selectedSubject.no_sat.toLocaleString()}
                     </p>
                   </div>
@@ -191,6 +173,27 @@ const SubjectAnalysis = () => {
                 searchPlaceholder="Search by Subject..."
               />
             </div>
+          </div>
+
+          {/* Main Pass Percentage Bar Chart */}
+          <div className="glass-panel rounded-2xl p-5 border border-slate-800/80">
+            <div className="mb-4">
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider font-display flex items-center gap-1.5">
+                <BarChart3 className="h-4.5 w-4.5 text-brand-400" />
+                <span>Subject Pass Rate Comparison (Year {year})</span>
+              </h3>
+              <p className="text-[11px] text-slate-400 font-medium">Comparison of passing candidates ratio across top subjects</p>
+            </div>
+            <BarChart
+              data={data}
+              xKey="subject_name"
+              yKey="pass_percentage"
+              label="Pass %"
+              color="#0e8fe5"
+              colorsPalette={null}
+              yFormatter={(val) => `${val}%`}
+              height={320}
+            />
           </div>
         </>
       )}
