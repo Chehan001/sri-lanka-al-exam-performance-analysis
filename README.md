@@ -2,8 +2,6 @@
 
 An interactive full-stack analytics dashboard for exploring Sri Lankan G.C.E. Advanced Level examination performance. The platform transforms official examination PDF reports and CSV datasets into clear, comparable, and actionable insights through data processing, REST APIs, and interactive visualizations.
 
-![Sri Lanka G.C.E. Advanced Level Performance Analysis Dashboard](src/assets/logo.png)
-
 ## Overview
 
 Examination reports contain valuable statistics, but their PDF and tabular formats can make analysis slow and difficult. This project brings that information together in one analytical workspace, allowing users to explore eligibility, performance, pass rates, grade distributions, and geographic trends across years.
