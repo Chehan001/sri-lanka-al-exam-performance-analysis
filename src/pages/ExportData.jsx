@@ -74,7 +74,7 @@ const ExportData = () => {
             Exporting in Live Sync Mode
           </p>
           <p className="text-slate-400 mt-1">
-            The system will request live data dumps from the backend API. Ensure the server is online at http://127.0.0.1:8000.
+            The system will request live data dumps from the configured backend API. Ensure the server is online before exporting.
           </p>
         </div>
       </div>

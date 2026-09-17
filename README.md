@@ -89,9 +89,9 @@ The application will be available at the local URL shown by Vite.
 
 ### Backend
 
-The backend is implemented with Python and FastAPI. Configure the backend environment and start the API service according to the backend project setup. The frontend API base URL is configured in `src/services/api.js`.
+The backend is implemented with Python and FastAPI. Configure the backend environment and start the API service according to the backend project setup. The frontend API base URL is configured with `VITE_API_URL`.
 
-During local development, Vite proxies `/api` requests to `http://127.0.0.1:8000`, so the backend does not need local CORS configuration. Set `VITE_BACKEND_URL` when the backend runs at another address. For a deployed frontend, set `VITE_API_BASE_URL` to the public API base URL or configure the hosting server to proxy `/api`.
+For local development, `VITE_API_URL` defaults to `http://127.0.0.1:8000`. In Vercel, set `VITE_API_URL` to the real Render service URL, such as `https://your-service.onrender.com`, for both Production and Preview environments, then redeploy.
 
 ## Project Structure
 

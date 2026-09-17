@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-// Use Vite's same-origin proxy in development to avoid browser CORS failures.
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
 // Create axios instance
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_URL,
   timeout: 120000, // Extend timeout for parsing large PDFs
   headers: {
     'Content-Type': 'application/json',
@@ -340,7 +339,7 @@ const apiService = {
 
   // 10. Export endpoints helper URLs
   getExportUrl: (type) => {
-    return `${API_BASE_URL}/export/${type}`;
+    return `${API_URL}/export/${type}`;
   }
 };
 
