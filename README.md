@@ -91,6 +91,8 @@ The application will be available at the local URL shown by Vite.
 
 The backend is implemented with Python and FastAPI. Configure the backend environment and start the API service according to the backend project setup. The frontend API base URL is configured in `src/services/api.js`.
 
+During local development, Vite proxies `/api` requests to `http://127.0.0.1:8000`, so the backend does not need local CORS configuration. Set `VITE_BACKEND_URL` when the backend runs at another address. For a deployed frontend, set `VITE_API_BASE_URL` to the public API base URL or configure the hosting server to proxy `/api`.
+
 ## Project Structure
 
 ```text

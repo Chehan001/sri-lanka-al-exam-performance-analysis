@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Define the API base URL
-const API_BASE_URL = 'http://127.0.0.1:8000';
+// Use Vite's same-origin proxy in development to avoid browser CORS failures.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 // Create axios instance
 const apiClient = axios.create({
@@ -89,7 +89,7 @@ const getStreamForSubject = (subjectName) => {
 // API Health Check
 export const checkApiHealth = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/health`, { timeout: 2000 });
+    const response = await apiClient.get('/health', { timeout: 2000 });
     return response.status === 200;
   } catch {
     return false;
